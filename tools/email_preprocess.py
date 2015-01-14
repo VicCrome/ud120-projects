@@ -9,7 +9,7 @@ from sklearn.feature_selection import SelectPercentile, f_classif
 
 
 
-def preprocess(words_file = "../tools/word_data.pkl", authors_file="../tools/email_authors.pkl"):
+def preprocess(words_file = "C:\\Users\\Victor\\Desktop\\Udacity\\introml\\ud421-projects\\tools\\word_data.pkl", authors_file="C:\\Users\\Victor\\Desktop\\Udacity\\introml\\ud421-projects\\tools\\email_authors.pkl"):
     """ 
         this function takes a pre-made list of email texts (by default word_data.pkl)
         and the corresponding authors (by default email_authors.pkl) and performs
@@ -57,3 +57,4 @@ def preprocess(words_file = "../tools/word_data.pkl", authors_file="../tools/ema
 
 
     return features_train_transformed, features_test_transformed, labels_train, labels_test
+
