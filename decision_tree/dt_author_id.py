@@ -12,7 +12,7 @@
     
 import sys
 from time import time
-sys.path.append("../tools/")
+sys.path.append("C:\\Users\\Victor\\Desktop\\Udacity\\introml\\ud421-projects\\tools")
 from email_preprocess import preprocess
 
 
@@ -23,10 +23,17 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 
 
-
 #########################################################
-### your code goes here ###
+from sklearn import tree
+clf = tree.DecisionTreeClassifier(min_samples_split=40)
+clf = clf.fit(features_train, labels_train)
 
+acc_min_samples_split_40 = clf.score(features_test, labels_test) 
+
+print "Accuracy is: ", acc_min_samples_split_40
+    
+
+print "Number of features is: ", features_train.shape[1]
 
 #########################################################
 
