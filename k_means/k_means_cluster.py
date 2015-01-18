@@ -12,11 +12,11 @@ import pickle
 import numpy
 import matplotlib.pyplot as plt
 import sys
-sys.path.append("../tools/")
+sys.path.append("C:\\Users\\Victor\\Desktop\\Udacity\\introml\\ud421-projects\\tools")
 from feature_format import featureFormat, targetFeatureSplit
+from sklearn.preprocessing import MinMaxScaler
 
-
-
+    
 
 def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature 1", f2_name="feature 2"):
     """ some plotting code designed to help you visualize your clusters """
@@ -40,7 +40,7 @@ def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature
 
 
 ### load in the dict of dicts containing all the data on each person in the dataset
-data_dict = pickle.load( open("../final_project/final_project_dataset.pkl", "r") )
+data_dict = pickle.load( open("C:\\Users\\Victor\\Desktop\\Udacity\\introml\\ud421-projects\\final_project\\final_project_dataset.pkl", "r") )
 ### there's an outlier--remove it! 
 data_dict.pop("TOTAL", 0)
 
@@ -53,13 +53,18 @@ poi  = "poi"
 features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
+scaler = MinMaxScaler()
+print finance_features
+finance_features = scaler.fit_transform(finance_features)
+print finance_features
+print scaler.get_params()
 
 
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to 
 ### for f1, f2, _ in finance_features:
 ### (as it's currently written, line below assumes 2 features)
-for f1, f2 in finance_features:
+for f1, f2, in finance_features:
     plt.scatter( f1, f2 )
 plt.show()
 
@@ -69,6 +74,7 @@ from sklearn.cluster import KMeans
 features_list = ["poi", feature_1, feature_2]
 data2 = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data2 )
+finance_features = scaler.fit_transform(finance_features)
 clf = KMeans(n_clusters=2)
 pred = clf.fit_predict( finance_features )
 Draw(pred, finance_features, poi, name="clusters_before_scaling.pdf", f1_name=feature_1, f2_name=feature_2)
@@ -82,7 +88,18 @@ try:
 except NameError:
     print "no predictions object named pred found, no clusters to plot"
 
-
-
+#stock_option_values = []
+#for key in data_dict:
+#    if data_dict[key]['exercised_stock_options'] != 'NaN':
+#        stock_option_values.append(data_dict[key]['exercised_stock_options'])
+#print max(stock_option_values)
+#print min(stock_option_values)
+#
+#salary_values = []
+#for key in data_dict:
+#    if data_dict[key]['salary'] != 'NaN':
+#        salary_values.append(data_dict[key]['salary'])
+#print max(salary_values)
+#print min(salary_values)
 
 
